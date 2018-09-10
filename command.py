@@ -5,7 +5,7 @@ TOKEN = str(os.environ['TOKEN'])
 # Public commands
 
 def start(sender_id, command):
-    return "DeptoonReminder at your service"
+    return "Deptoon Reminder at your service"
 
 # Auxiliary methods
 

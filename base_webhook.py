@@ -13,6 +13,7 @@ app = Flask(__name__)
 @app.route("/{}".format(TOKEN), methods=['GET', 'POST'])
 def pass_update():
     UPDATE_QUEUE.put(request.data)  # pass update to bot
+    BOT.sendMessage(environ['GROUP_ID'], "*HOLA*", parse_mode="Markdown")
     return request.data
 
 

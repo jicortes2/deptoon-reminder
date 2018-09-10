@@ -24,9 +24,6 @@ class Base(telepot.helper.ChatHandler):
 
     def on_chat_message(self, msg):
         content_type, chat_type, chat_id = telepot.glance(msg)
-        print("ENTRO ACA")
-        print(msg)
-        print(chat_id)
         user_id = msg["from"]["id"]
 
         if False:
