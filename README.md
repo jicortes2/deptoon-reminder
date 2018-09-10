@@ -21,4 +21,4 @@ If you want to access your database, you can do it with the following command:
 heroku pg:psql
 ```
 
-Project based on previous one made in collaboration of [Cristián Cortés](https://github.com/criscv94)
+Project based on [previous one](https://github.com/jicortes2/base_bot) made in collaboration of [Cristián Cortés](https://github.com/criscv94)
