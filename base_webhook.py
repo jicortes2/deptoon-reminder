@@ -4,7 +4,7 @@ from os import environ
 from time import sleep
 from base_bot import BOT, UPDATE_QUEUE, TOKEN
 
-URL = "https://<HEROKU_APP_NAME>.herokuapp.com/{}".format(TOKEN)
+URL = "https://deptoon-reminder.herokuapp.com/{}".format(TOKEN)
 
 PORT = int(environ.get("PORT", 5000))
 app = Flask(__name__)
@@ -13,7 +13,7 @@ app = Flask(__name__)
 @app.route("/{}".format(TOKEN), methods=['GET', 'POST'])
 def pass_update():
     UPDATE_QUEUE.put(request.data)  # pass update to bot
-    return 'OK'
+    return request.data
 
 
 if __name__ == '__main__':

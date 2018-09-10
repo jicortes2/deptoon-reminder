@@ -1,6 +1,6 @@
 import telepot
 import requests
-from command import TOKEN, start, masterdb, not_found
+from command import TOKEN, start, not_found
 from time import sleep
 from telepot.delegate import per_chat_id, create_open, pave_event_space
 try:
@@ -12,8 +12,6 @@ except ImportError:
 commands = {
     # Public commands
     '/start': start,
-    # Admin commands
-    '/masterdb': masterdb,
     # Not found
     'not_found': not_found,
 }
