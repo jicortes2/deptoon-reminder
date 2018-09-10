@@ -1,5 +1,5 @@
-# Readme
-Init project for a telegram bot, it has basic functionalities and modules.
+# deptoon-reminder
+Telegram bot receiving request from a lambda function
 
 ### Instructions
 Assuming you have already installed Heroku and created a bot from `BotFather`
