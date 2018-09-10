@@ -4,7 +4,7 @@ from os import environ
 from time import sleep
 from base_bot import BOT, UPDATE_QUEUE, TOKEN
 
-URL = "{}".format(TOKEN)
+URL = "{}{}".format(environ['DOMAIN'], TOKEN)
 
 PORT = int(environ.get("PORT", 5000))
 app = Flask(__name__)
