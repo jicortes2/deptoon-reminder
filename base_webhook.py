@@ -12,10 +12,14 @@ app = Flask(__name__)
 
 @app.route("/{}".format(TOKEN), methods=["GET", "POST"])
 def pass_update():
-    # UPDATE_QUEUE.put(request.data)  # pass update to bot
-    msg = loads(request.get_json(force=True)["data"])
-    BOT.sendMessage(environ["GROUP_ID"], msg["message"], parse_mode="HTML")
-    return "message: {}\nstatusCode: {}".format(msg["message"], 200)
+    try:
+        msg = loads(request.get_json(force=True)["data"])
+        BOT.sendMessage(environ["GROUP_ID"], msg["message"], parse_mode="HTML")
+        return "message: {}\nstatusCode: {}".format(msg["message"], 200)
+    except KeyError:
+        UPDATE_QUEUE.put(request.data)  # pass update to bot
+        return "OK"
+
 
 
 if __name__ == "__main__":
