@@ -1,6 +1,6 @@
 
 # Created by https://www.gitignore.io/api/node,macos,python,windows,sublimetext,visualstudio
-
+*.zip
 ### macOS ###
 # General
 .DS_Store

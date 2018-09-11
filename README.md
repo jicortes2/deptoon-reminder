@@ -24,13 +24,16 @@ heroku pg:psql
 #### Docker
 ```
 docker build -t flask-sample-one:latest .
-docker run -p 5000:5000 --env-file ./.env flask-sample-one  
+docker run -p 5000:5000 --env-file ./.env -v ~/path/to/app:/app flask-sample-one
 ```
 
 env file:
 ```
 TOKEN=<YOUR_TOKEN>
 DOMAIN=<YOUR_DOMAIN>
+GROUP_ID=<YOUR_CHAT_ID>
+BASE_URL=<DOMAIN>
 ```
+
 
 Project based on [previous one](https://github.com/jicortes2/base_bot) made in collaboration of [Cristián Cortés](https://github.com/criscv94)

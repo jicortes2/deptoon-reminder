@@ -1,0 +1,22 @@
+{
+  "name": "lambda-reminder",
+  "version": "1.0.0",
+  "description": "aws lambda function set with cron to remind the account payment via telegram bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jicortes2/deptoon-reminder.git"
+  },
+  "author": "Juan Cortes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jicortes2/deptoon-reminder/issues"
+  },
+  "homepage": "https://github.com/jicortes2/deptoon-reminder#readme",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
