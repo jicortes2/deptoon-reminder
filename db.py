@@ -4,7 +4,7 @@ import os
 import urllib.parse as urlparse
 
 """
-CREATE TABLE reminders (chat_id VARCHAR(50) NOT NULL, reminder TEXT NOT NULL,
+CREATE TABLE reminders (chat_id BIGINT NOT NULL, reminder TEXT NOT NULL,
                 date DATE NOT NULL, type INT NOT NULL, finished BOOLEAN DEFAULT FALSE);
 CREATE INDEX chats_index ON reminders (chat_id);
 """
@@ -27,7 +27,7 @@ def add_reminder(chat_id, periodicity, date, msg):
         cur = conn.cursor()
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         query = "INSERT INTO reminders (chat_id, reminder, date, type) VALUES \
-                ('{}', '{}', '{}', {})".format(chat_id, msg, date, periodicity)
+                ({}, '{}', '{}', {})".format(chat_id, msg, date, periodicity)
         print(query)
         cur.execute(query)
         conn.close()
