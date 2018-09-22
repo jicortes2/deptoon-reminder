@@ -12,13 +12,14 @@ app = Flask(__name__)
 
 @app.route("/{}".format(TOKEN), methods=["GET", "POST"])
 def pass_update():
-    try:
-        msg = loads(request.get_json(force=True)["data"])
-        BOT.sendMessage(environ["GROUP_ID"], msg["message"], parse_mode="HTML")
-        return "message: {}\nstatusCode: {}".format(msg["message"], 200)
-    except KeyError:
-        UPDATE_QUEUE.put(request.data)  # pass update to bot
-        return "OK"
+    UPDATE_QUEUE.put(request.data)  # pass update to bot
+    return "OK"
+
+@app.route("/send_reminders", methods=["POST"])
+def send_reminders():
+    msg = loads(request.get_json(force=True)["data"])
+    BOT.sendMessage(environ["GROUP_ID"], msg["message"], parse_mode="HTML")
+    return "message: {}\nstatusCode: {}".format(msg["message"], 200)
 
 
 

@@ -1,6 +1,6 @@
 import telepot
 import requests
-from command import TOKEN, start, not_found
+from command import TOKEN, start, not_found, reminder
 from time import sleep
 from telepot.delegate import per_chat_id, create_open, pave_event_space
 try:
@@ -12,6 +12,7 @@ except ImportError:
 commands = {
     # Public commands
     '/start': start,
+    '/reminder': reminder,
     # Not found
     'not_found': not_found,
 }
@@ -37,7 +38,7 @@ class Base(telepot.helper.ChatHandler):
         args = text.replace('@<Name_Bot>', '').split(' ', 1)
         func = commands.get(args[0], commands['not_found'])
         print(args)
-        answer = func(user_id, *args)
+        answer = func(chat_id, *args)
         BOT.sendMessage(chat_id, answer, parse_mode="Markdown")
 
 
