@@ -35,7 +35,7 @@ class Base(telepot.helper.ChatHandler):
         text = msg['text']
         if not text.startswith("/"):
             return
-        args = text.replace('@<Name_Bot>', '').split(' ', 1)
+        args = text.replace('@deptoon_reminder_bot', '').split(' ', 1)
         func = commands.get(args[0], commands['not_found'])
         print(args)
         answer = func(chat_id, *args)

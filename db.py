@@ -10,7 +10,7 @@ CREATE INDEX chats_index ON reminders (chat_id);
 """
 
 def _access(option=True):
-    """ Returns connection to splitbot database  """
+    """ Returns connection to deptoon reminder database  """
     return connect(
                     dbname=os.environ["DB_NAME"],
                     user=os.environ["DB_USER"],
@@ -20,13 +20,16 @@ def _access(option=True):
                 )
 
 
-def add_element(table, thing, sender_id):
+def add_reminder(chat_id, periodicity, date, msg):
     """ Returns true if the thing is added to the table """
     try:
         conn = _access()
         cur = conn.cursor()
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-        cur.execute("INSERT INTO {} (idea, date, owner) VALUES ('{}', NULL, {})".format(table, thing, sender_id))
+        query = "INSERT INTO reminders (chat_id, reminder, date, type) VALUES \
+                ('{}', '{}', '{}', {})".format(chat_id, msg, date, periodicity)
+        print(query)
+        cur.execute(query)
         conn.close()
         return True
     except IntegrityError:

@@ -1,5 +1,6 @@
 from random import choice
 from db import add_element
+from datetime import datetime
 import os
 
 
@@ -17,16 +18,17 @@ def start(sender_id, command):
 def reminder(chat_id, command, args):
     """
         Add a reminder to your chat
-        Use: /reminder periodicity date message
-        Example: /reminder monthly 22-11 This is an example
-        Periodicity options: once, monthly, annually
+        **Use:** /reminder periodicity date message
+        **Example:** /reminder monthly 22-11 This message will be sent on every 22nd
+        **Periodicity options:** once, monthly, annually
     """
     # /reminder once 23-06 hola!
-    if args.count(' ') < 3:
+    if args.count(' ') < 2:
         return reminder.__doc__
-    frequency, date, msg = args.split(' ', 2)
-    periodicity = TYPES[frequency.lower()]
-    return args
+    frequency, date_string, msg = args.split(' ', 2)
+    date = datetime.strptime(date_string, '%d-%m')
+    if db.add_element
+    return args, chat_id
 
 # Auxiliary methods
 
