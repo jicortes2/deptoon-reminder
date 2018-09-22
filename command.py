@@ -1,5 +1,5 @@
 from random import choice
-from db import add_element
+from db import add_reminder
 from datetime import datetime
 import os
 
