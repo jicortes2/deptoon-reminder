@@ -29,9 +29,9 @@ def reminder(chat_id, command, args):
     periodicity = TYPES[frequency.lower()]
     date = datetime.strptime(date_string, '%d-%m')
     if add_reminder(chat_id, periodicity, date, msg):
-        return args, chat_id
+        return "Reminder added correctly"
     else:
-        return periodicity, date, msg, chat_id
+        return "There was a problem adding your reminder, try again!\n{}".format(reminder.__doc__)
 
 # Auxiliary methods
 
