@@ -28,7 +28,7 @@ def reminder(chat_id, command, args):
     frequency, date_string, msg = args.split(' ', 2)
     periodicity = TYPES[frequency.lower()]
     date = datetime.strptime(date_string, '%d-%m')
-    if db.add_reminder(chat_id, periodicity, date, msg):
+    if add_reminder(chat_id, periodicity, date, msg):
         return args, chat_id
     else:
         return periodicity, date, msg, chat_id
