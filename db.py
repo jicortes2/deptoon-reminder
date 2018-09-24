@@ -30,8 +30,8 @@ def add_reminder(chat_id, periodicity, date, msg):
         query = "DECLARE \
                 INSERT INTO reminders (id, chat_id, reminder, date, type) VALUES \
                 ('{}', {}, %s, %s, {})".format(id, chat_id, periodicity)
-        print(query, AsIs(msg), AsIs(date))
-        cur.execute(query)
+        print(query)
+        cur.execute(query, AsIs(msg), AsIs(date))
         conn.close()
         return True
     except IntegrityError:
