@@ -2,8 +2,8 @@ from flask import Flask, request
 from json import loads
 from os import environ
 from time import sleep
-from base_bot import BOT, UPDATE_QUEUE, TOKEN
-from db import find_reminders
+from base_bot import BOT, UPDATE_QUEUE, TOKEN, TYPES
+from db import find_reminders, update_reminders
 
 URL = "{}{}".format(environ["DOMAIN"], TOKEN)
 
@@ -20,9 +20,10 @@ def pass_update():
 def send_reminders():
     tuples = find_reminders()
     for tup in tuples:
-        BOT.sendMessage(tup["chat_id"], tup["reminder"], parse_mode="HTML")
-    return "message: {}\nstatusCode: {}".format(msg["message"], 200)
-
+        BOT.sendMessage(tup[1], tup[2], parse_mode="HTML")
+        if tup[4] == TYPES["once"]:
+            update_reminders(tup)
+    return "OK"
 
 
 if __name__ == "__main__":

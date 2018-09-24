@@ -1,6 +1,6 @@
 import telepot
 import requests
-from command import TOKEN, start, not_found, reminder
+from command import TOKEN, TYPES, start, not_found, reminder
 from time import sleep
 from telepot.delegate import per_chat_id, create_open, pave_event_space
 try:

@@ -1,12 +1,12 @@
 from psycopg2 import connect, IntegrityError
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import os
+import uuid
 import urllib.parse as urlparse
 
 """
-CREATE TABLE reminders (chat_id BIGINT NOT NULL, reminder TEXT NOT NULL,
+CREATE TABLE reminders (id VARCHAR(40) UNIQUE, chat_id BIGINT NOT NULL, reminder TEXT NOT NULL,
                 date DATE NOT NULL, type INT NOT NULL, finished BOOLEAN DEFAULT FALSE);
-CREATE INDEX chats_index ON reminders (chat_id);
 """
 
 def _access(option=True):
@@ -26,8 +26,9 @@ def add_reminder(chat_id, periodicity, date, msg):
         conn = _access()
         cur = conn.cursor()
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-        query = "INSERT INTO reminders (chat_id, reminder, date, type) VALUES \
-                ({}, '{}', '{}', {})".format(chat_id, msg, date, periodicity)
+        id = str(uuid.uuid4())
+        query = "INSERT INTO reminders (id, chat_id, reminder, date, type) VALUES \
+                ('{}', {}, '{}', '{}', {})".format(id, chat_id, msg, date, periodicity)
         print(query)
         cur.execute(query)
         conn.close()
@@ -45,6 +46,20 @@ def find_reminders():
              EXTRACT(day FROM "date") = EXTRACT(day FROM now()) AND \
              finished = FALSE'
     cur.execute(query)
-    tuples = cur.fetchAll()
+    tuples = cur.fetchall()
+    conn.close()
+    return tuples
+
+def update_reminders():
+    """ Update reminders that shouldn't be send again """
+    conn = _access()
+    cur = conn.cursor()
+    conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+    query = 'SELECT * FROM reminders \
+             WHERE EXTRACT(month FROM "date") = EXTRACT(month FROM now()) AND\
+             EXTRACT(day FROM "date") = EXTRACT(day FROM now()) AND \
+             finished = FALSE'
+    cur.execute(query)
+    tuples = cur.fetchall()
     conn.close()
     return tuples
