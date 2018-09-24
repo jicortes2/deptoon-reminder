@@ -3,6 +3,7 @@ from json import loads
 from os import environ
 from time import sleep
 from base_bot import BOT, UPDATE_QUEUE, TOKEN
+from db import find_reminders
 
 URL = "{}{}".format(environ["DOMAIN"], TOKEN)
 
@@ -17,8 +18,9 @@ def pass_update():
 
 @app.route("/send_reminders", methods=["POST"])
 def send_reminders():
-    msg = loads(request.get_json(force=True)["data"])
-    BOT.sendMessage(environ["GROUP_ID"], msg["message"], parse_mode="HTML")
+    tuples = find_reminders()
+    for tup in tuples:
+        BOT.sendMessage(tup["chat_id"], tup["reminder"], parse_mode="HTML")
     return "message: {}\nstatusCode: {}".format(msg["message"], 200)
 
 

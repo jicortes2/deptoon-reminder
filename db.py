@@ -34,3 +34,16 @@ def add_reminder(chat_id, periodicity, date, msg):
         return True
     except IntegrityError:
         return False
+
+def find_reminders():
+    """ Returns reminders from today """
+    conn = _access()
+    cur = conn.cursor()
+    conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+    query = 'SELECT * FROM reminders \
+             WHERE EXTRACT(month FROM "date") = EXTRACT(month FROM now()) AND\
+             EXTRACT(day FROM "date") = EXTRACT(day FROM now()) AND \
+             finished = FALSE'
+    tuples = cur.execute(query)
+    conn.close()
+    return tuples
