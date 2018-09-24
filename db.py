@@ -1,5 +1,5 @@
 from psycopg2 import connect, IntegrityError
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT, AsIs
 import os
 import uuid
 import urllib.parse as urlparse
@@ -27,9 +27,10 @@ def add_reminder(chat_id, periodicity, date, msg):
         cur = conn.cursor()
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         id = str(uuid.uuid4())
-        query = "INSERT INTO reminders (id, chat_id, reminder, date, type) VALUES \
-                ('{}', {}, '{}', '{}', {})".format(id, chat_id, msg, date, periodicity)
-        print(query)
+        query = "DECLARE \
+                INSERT INTO reminders (id, chat_id, reminder, date, type) VALUES \
+                ('{}', {}, %s, %s, {})".format(id, chat_id, periodicity)
+        print(query, AsIs(msg), AsIs(date))
         cur.execute(query)
         conn.close()
         return True
