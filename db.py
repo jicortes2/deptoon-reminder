@@ -44,6 +44,7 @@ def find_reminders():
              WHERE EXTRACT(month FROM "date") = EXTRACT(month FROM now()) AND\
              EXTRACT(day FROM "date") = EXTRACT(day FROM now()) AND \
              finished = FALSE'
-    tuples = cur.execute(query)
+    cur.execute(query)
+    tuples = cur.fetchAll()
     conn.close()
     return tuples
