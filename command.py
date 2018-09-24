@@ -18,9 +18,9 @@ def start(sender_id, command):
 def reminder(chat_id, command, args):
     """
         Add a reminder to your chat
-        **Use:** /reminder periodicity date message
-        **Example:** /reminder monthly 22-11 This message will be sent on every 22nd
-        **Periodicity options:** once, monthly, annually
+        *Use:* /reminder periodicity date message
+        *Example:* /reminder monthly 22-11 This message will be sent on every 22nd
+        *Periodicity options:* once, monthly, annually
     """
     # /reminder once 23-06 hola!
     if args.count(' ') < 2:
