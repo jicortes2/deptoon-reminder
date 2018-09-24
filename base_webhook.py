@@ -22,7 +22,7 @@ def send_reminders():
     for tup in tuples:
         BOT.sendMessage(tup[1], tup[2], parse_mode="HTML")
         if tup[4] == TYPES["once"]:
-            update_reminders(tup)
+            update_reminders(tup[0])
     return "OK"
 
 

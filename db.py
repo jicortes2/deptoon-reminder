@@ -50,16 +50,13 @@ def find_reminders():
     conn.close()
     return tuples
 
-def update_reminders():
+def update_reminders(id):
     """ Update reminders that shouldn't be send again """
     conn = _access()
     cur = conn.cursor()
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-    query = 'SELECT * FROM reminders \
-             WHERE EXTRACT(month FROM "date") = EXTRACT(month FROM now()) AND\
-             EXTRACT(day FROM "date") = EXTRACT(day FROM now()) AND \
-             finished = FALSE'
+    query = 'UPDATE reminders SET finished = TRUE WHERE id = "{}"'.format(id)
+    print(query)
     cur.execute(query)
-    tuples = cur.fetchall()
     conn.close()
     return tuples
