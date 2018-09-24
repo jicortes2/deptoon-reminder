@@ -42,9 +42,10 @@ def find_reminders():
     cur = conn.cursor()
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     query = 'SELECT * FROM reminders \
-             WHERE EXTRACT(month FROM "date") = EXTRACT(month FROM now()) AND\
-             EXTRACT(day FROM "date") = EXTRACT(day FROM now()) AND \
-             finished = FALSE'
+             WHERE (EXTRACT(month FROM "date") = EXTRACT(month FROM now()) AND\
+             EXTRACT(day FROM "date") = EXTRACT(day FROM now()) AND type = 2) OR\
+             (EXTRACT(day FROM "date") = EXTRACT(day FROM now()) AND type != 2)\
+             AND finished = FALSE'
     cur.execute(query)
     tuples = cur.fetchall()
     conn.close()
@@ -55,8 +56,7 @@ def update_reminders(id):
     conn = _access()
     cur = conn.cursor()
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-    query = 'UPDATE reminders SET finished = TRUE WHERE id = "{}"'.format(id)
+    query = "UPDATE reminders SET finished = TRUE WHERE id = '{}'".format(id)
     print(query)
     cur.execute(query)
     conn.close()
-    return tuples
