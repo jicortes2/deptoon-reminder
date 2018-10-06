@@ -20,6 +20,7 @@ def pass_update():
 def send_reminders():
     tuples = find_reminders()
     for tup in tuples:
+        print(tup)
         BOT.sendMessage(tup[1], tup[2], parse_mode="Markdown")
         if tup[4] == TYPES["once"]:
             update_reminders(tup[0])

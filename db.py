@@ -29,7 +29,6 @@ def add_reminder(chat_id, periodicity, date, msg):
         id = str(uuid.uuid4())
         query = """INSERT INTO reminders (id, chat_id, reminder, date, type) VALUES \
                 ('{}', {}, %s, %s, {})""".format(id, chat_id, periodicity)
-        print(query)
         cur.execute(query, (msg, date))
         conn.close()
         return True
@@ -57,6 +56,5 @@ def update_reminders(id):
     cur = conn.cursor()
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     query = "UPDATE reminders SET finished = TRUE WHERE id = '{}'".format(id)
-    print(query)
     cur.execute(query)
     conn.close()
