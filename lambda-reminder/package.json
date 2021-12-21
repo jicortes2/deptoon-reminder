@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/jicortes2/deptoon-reminder#readme",
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.2"
   }
 }
